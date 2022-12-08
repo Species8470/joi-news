@@ -11,9 +11,11 @@ pipeline {
       }
     }
 
-    stage('Build') {
+    stage('Build and push to internal repo') {
       steps {
         sh '''
+        ./gradlew build
+        ./gradlew uploadArchives
          '''
       }
     }
