@@ -15,7 +15,6 @@ pipeline {
       steps {
         sh '''
         ./gradlew build
-        ./gradlew uploadArchives
          '''
       }
     }
