@@ -21,8 +21,7 @@ pipeline {
     stage('GenImage') {
       steps {
         sh '''
-         set +x
-         ./ci/gen-image.sh
+
          '''
       }
     }
