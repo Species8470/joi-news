@@ -4,6 +4,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'jacoco'
     id "org.sonarqube" version "3.3"
+    id "maven-publish"
 }
 
 group 'org.dsoc'
@@ -41,9 +42,9 @@ jacocoTestReport {
     }
 }
 
-uploadArchives {
+publishing {
     repositories {
-        mavenDeployer {
+        maven {
             repository(
                     url: "${nexusUrl}/repository/maven-releases/") {
                 authentication(userName: nexusUsername, password: nexusPassword)
