@@ -39,6 +39,9 @@ pipeline {
 
       steps {
           sh '''
+            cd ci
+            chmod +x deploy.sh
+            ./deploy.sh
               '''
       }
     }
