@@ -25,8 +25,8 @@ pipeline {
     stage('Generate Docker Image') {
       steps {
         sh '''
-        docker build -f web/Dockerfile -t 10.0.100.30:8300/joi-web:0.1 .
-        docker push 10.0.100.30:8300/joi-web:0.1
+        sudo docker build -f web/Dockerfile -t 10.0.100.30:8300/joi-web:0.1 .
+        sudo docker push 10.0.100.30:8300/joi-web:0.1
          '''
       }
     }
