@@ -43,8 +43,8 @@ pipeline {
 
       steps {
           sh '''
-            ssh -i ~/.ssh/joi.pem ubuntu@10.0.0.10 sudo docker run -itd --restart=always 10.0.100.30:8300/joi-web:0.1
-            ssh -i ~/.ssh/joi.pem ubuntu@10.0.1.10 sudo docker run -itd --restart=always 10.0.100.30:8300/joi-web:0.1
+            ssh -i ~/.ssh/joi.pem ubuntu@10.0.0.10 sudo docker run -itd --restart=always 10.0.100.30:8300/joi-web:0.1 -p 80:80
+            ssh -i ~/.ssh/joi.pem ubuntu@10.0.1.10 sudo docker run -itd --restart=always 10.0.100.30:8300/joi-web:0.1 -p 80:80
               '''
       }
     }
