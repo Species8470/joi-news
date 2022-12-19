@@ -3,26 +3,29 @@ pipeline {
 
   stages {
 
-    stage('Test & sonarqube') {
+    stage('Test for Spring app') {
       steps {
         sh '''
-         ./gradlew test jacocoTestReport sonarqube
+          ./gradlew test jacocoTestReport
          '''
       }
     }
 
-    stage('Build and push to internal repo') {
+    stage('Build') {
       steps {
         sh '''
-        ./gradlew build
+        cd web
+        npm run build
+        cd ../
          '''
       }
     }
 
-    stage('GenImage') {
+    stage('Generate Docker Image') {
       steps {
         sh '''
-
+        docker build -f web/Dockerfile -t 10.0.100.30:8300/joi-web:0.1 .
+        docker push 10.0.100.30:8300/joi-web:0.1
          '''
       }
     }
@@ -39,9 +42,8 @@ pipeline {
 
       steps {
           sh '''
-            cd ci
-            chmod +x deploy.sh
-            ./deploy.sh
+            ssh -i ~/.ssh/joi.pem ubuntu@10.0.0.10 sudo docker run -itd --restart=always 10.0.100.30:8300/joi-web:0.1
+            ssh -i ~/.ssh/joi.pem ubuntu@10.0.1.10 sudo docker run -itd --restart=always 10.0.100.30:8300/joi-web:0.1
               '''
       }
     }
