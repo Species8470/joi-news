@@ -15,6 +15,6 @@
     dest: /home/ubuntu/docker-compose.yml
 
 - name: docker compose up new image
-  ansible.builtin.shell: docker compose up
+  ansible.builtin.shell: docker compose up -d
   args:
     chdir: /home/ubuntu
