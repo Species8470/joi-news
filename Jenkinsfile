@@ -14,6 +14,7 @@ pipeline {
     stage('Build') {
       steps {
         sh '''
+        ./gradlew build
         cd web
         npm install
         npm run build
