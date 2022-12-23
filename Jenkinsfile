@@ -46,8 +46,8 @@ pipeline {
 
       steps {
           sh '''
-          sed -i 's/BUILD_NUMBER/${BUILD_NUMBER}/g' ci/deploy-playbook/roles/app/files/app-docker-compose.yml
-          sed -i 's/BUILD_NUMBER/${BUILD_NUMBER}/g' ci/deploy-playbook/roles/web/files/web-docker-compose.yml
+          sed -i 's/BUILD_NUMBER/'"$BUILD_NUMBER"'/g' ci/deploy-playbook/roles/app/files/app-docker-compose.yml
+          sed -i 's/BUILD_NUMBER/'"$BUILD_NUMBER"'/g' ci/deploy-playbook/roles/web/files/web-docker-compose.yml
           cp ~/hosts ci/deploy-playbook/
           cd ci/deploy-playbook
           ansible-playbook site.yml
