@@ -25,8 +25,10 @@ pipeline {
     stage('Generate Docker Image') {
       steps {
         sh '''
-        sudo docker build -f web/Dockerfile -t 10.0.100.30:8300/joi-web:0.1 .
-        sudo docker push 10.0.100.30:8300/joi-web:0.1
+        sudo docker build -f web/Dockerfile -t 10.0.100.30:8300/joi-web:${BUILD_NUMBER} .
+        sudo docker push 10.0.100.30:8300/joi-web:${BUILD_NUMBER}
+        sudo docker build -f Dockerfile -t 10.0.100.30:8300/joi-app:${BUILD_NUMBER} .
+        sudo docker push 10.0.100.30:8300/joi-app:${BUILD_NUMBER}
          '''
       }
     }
@@ -43,12 +45,11 @@ pipeline {
 
       steps {
           sh '''
-            ssh -i ~/.ssh/joi.pem ubuntu@10.0.0.10 sudo docker stop $(sudo docker ps -a -q)
-            ssh -i ~/.ssh/joi.pem ubuntu@10.0.0.10 sudo docker rm $(sudo docker ps -a -q)
-            ssh -i ~/.ssh/joi.pem ubuntu@10.0.1.10 sudo docker stop $(sudo docker ps -a -q)
-            ssh -i ~/.ssh/joi.pem ubuntu@10.0.1.10 sudo docker rm $(sudo docker ps -a -q)
-            ssh -i ~/.ssh/joi.pem ubuntu@10.0.0.10 sudo docker run -itd -p 80:80 --restart=always 10.0.100.30:8300/joi-web:0.1
-            ssh -i ~/.ssh/joi.pem ubuntu@10.0.1.10 sudo docker run -itd -p 80:80 --restart=always 10.0.100.30:8300/joi-web:0.1
+          sed -i 's/BUILD_NUMBER/${BUILD_NUMBER}/g' ci/deploy-playbook/roles/app/files/app-docker-compose.yml
+          sed -i 's/BUILD_NUMBER/${BUILD_NUMBER}/g' ci/deploy-playbook/roles/web/files/web-docker-compose.yml
+          cp ~/hosts ci/deploy-playbook/
+          cd ci/deploy-playbook
+          ansible-playbook site.yml
               '''
       }
     }

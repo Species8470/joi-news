@@ -1,3 +1,0 @@
-services:
-  app:
-    image: myapp:1.0

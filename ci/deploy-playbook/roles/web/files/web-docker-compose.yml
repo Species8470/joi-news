@@ -1,0 +1,7 @@
+services:
+  app:
+    image: 10.0.100.30:8300/joi-web:BUILD_NUMBER
+    ports:
+      - "80:80"
+    environment:
+      - REACT_APP_API_BASE_URL=${REACT_APP_API_BASE_URL}

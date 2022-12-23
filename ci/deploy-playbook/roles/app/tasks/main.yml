@@ -1,0 +1,20 @@
+- name: check if previous docker compose file exist
+  ansible.builtin.stat:
+    path: /home/ubuntu/docker-compose.yml
+  register: compose
+
+- name: down all containers if compose file exists
+  ansible.builtin.shell: docker compose down
+  args:
+    chdir: /home/ubuntu
+  when: compose.stat.exists
+
+- name: copy new compose file
+  ansible.builtin.copy:
+    src: app-docker-compose.yml
+    dest: /home/ubuntu/docker-compose.yml
+
+- name: docker compose up new image
+  ansible.builtin.shell: docker compose up
+  args:
+    chdir: /home/ubuntu
