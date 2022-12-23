@@ -4,6 +4,6 @@ WORKDIR /usr/shre/nginx/html
 
 RUN rm -rf ./*
 
-ADD build /usr/share/nginx/html
+ADD build ./
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
