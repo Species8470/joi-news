@@ -16,6 +16,7 @@ pipeline {
         sh '''
         ./gradlew build
         cd web
+        echo REACT_APP_API_BASE_URL=$REACT_APP_API_BASE_URL > .env
         npm install
         npm run build
         cd ../

@@ -1,0 +1,25 @@
+services:
+  web:
+    image: joi-web:0.1
+    ports:
+      - "9100:80"
+  app:
+    image: joi-app:0.1
+    environment:
+      - SPRING_PROFILES_ACTIVE=local
+      - SERVER_PORT=8092
+      - DB_URL=jdbc:postgresql://db:5432/local?currentSchema=joinews
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=p@ssw0rd
+    ports:
+      - "9110:8092"
+    depends_on:
+      - db
+  db:
+    image: postgres:14.5
+    environment:
+      - POSTGRES_DB=local
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=p@ssw0rd
+    ports:
+      - "5432:5432"
