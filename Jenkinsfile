@@ -6,7 +6,7 @@ pipeline {
     stage('Test for Spring app') {
       steps {
         sh '''
-          ./gradlew test jacocoTestReport
+          ./gradlew test jacocoTestReport sonarqube
          '''
       }
     }
