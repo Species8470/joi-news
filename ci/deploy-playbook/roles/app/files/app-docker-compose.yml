@@ -3,3 +3,9 @@ services:
     image: 10.0.100.30:8300/joi-app:BUILD_NUMBER
     ports:
       - "8000:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+      - SERVER_PORT=${SERVER_PORT}
+      - DB_URL=${DB_URL}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
