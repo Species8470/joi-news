@@ -1,6 +1,6 @@
 services:
   app:
-    image: 10.0.100.30:8300/joi-web:BUILD_NUMBER
+    image: 10.0.100.40:80/joi-web:BUILD_NUMBER
     ports:
       - "80:80"
     environment:

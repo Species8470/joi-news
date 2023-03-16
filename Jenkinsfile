@@ -6,7 +6,7 @@ pipeline {
     stage('Test for Spring app') {
       steps {
         sh '''
-          ./gradlew test jacocoTestReport sonarqube
+          ./gradlew test jacocoTestReport
          '''
       }
     }
@@ -27,10 +27,10 @@ pipeline {
     stage('Generate Docker Image') {
       steps {
         sh '''
-        sudo docker build -f web/Dockerfile -t 10.0.100.30:8300/joi-web:${BUILD_NUMBER} .
-        sudo docker push 10.0.100.30:8300/joi-web:${BUILD_NUMBER}
-        sudo docker build -f Dockerfile -t 10.0.100.30:8300/joi-app:${BUILD_NUMBER} .
-        sudo docker push 10.0.100.30:8300/joi-app:${BUILD_NUMBER}
+        sudo docker build -f web/Dockerfile -t 10.0.100.40:80joi-web:${BUILD_NUMBER} .
+        sudo docker push 10.0.100.40:80/joi-web:${BUILD_NUMBER}
+        sudo docker build -f Dockerfile -t 10.0.100.40:80/joi-app:${BUILD_NUMBER} .
+        sudo docker push 10.0.100.40:80/joi-app:${BUILD_NUMBER}
          '''
       }
     }
