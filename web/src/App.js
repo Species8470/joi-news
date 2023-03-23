@@ -6,6 +6,7 @@ const baseurl = process.env.REACT_APP_API_BASE_URL
 function App() {
   const [summary, setSummary] = useState({count: 0})
   const [err, setError] = useState(null)
+  console.log(baseurl)
 
   useEffect(() => {
     const loadData = async () => {
